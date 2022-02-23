@@ -115,20 +115,26 @@ class describeProductInfo:
 
     def callback(self):
             self.VATType = self.VATTypeOptions.get()
-            if type(self.VATType) == str:
-                pass
-            else:
-                self.error.config(text="The VATType is not String!")
-                raise Exception("The VATType is not String!")
 
             if self.SalesPrExclVATGUI.get() == '' or self.PurchCostExclVATGUI.get() == '':
                 self.error.config(text="No Input!")
                 return
-            try:
+
+            containLettersSales = self.SalesPrExclVATGUI.get().lower().islower()
+            containLettersPurch = self.PurchCostExclVATGUI.get().lower().islower()
+
+            if not containLettersSales:
                 self.SalesPrExclVAT = float(self.SalesPrExclVATGUI.get())
+            else:
+                self.error.config(text="The Sales Price Exclude VAT contains letters!")
+                raise Exception("The Sales Price Exclude VAT contains letters!")
+
+            if not containLettersPurch:
                 self.PurchCostExclVAT = float(self.PurchCostExclVATGUI.get())
-            except ValueError:
-                self.error.config(text="Input have to be a number (int/float)!")
+            else:
+                self.error.config(text="The Sales Price Exclude VAT contains letters!")
+                raise Exception("The Sales Price Exclude VAT contains letters!")
+
 
             if type(self.SalesPrExclVAT) == int:
                 pass
