@@ -89,3 +89,4 @@ if __name__ == '__main__':
     print("\n\n")
     start = describeProductInfo(VATType, SalesPrExclVAT, PurchCostExclVAT)
     start.printProductInfo()
+    input('Press ENTER to exit')

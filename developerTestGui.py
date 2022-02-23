@@ -121,7 +121,7 @@ class describeProductInfo:
                 self.error.config(text="The VATType is not String!")
                 raise Exception("The VATType is not String!")
 
-            if self.SalesPrExclVATGUI.get() == '' and self.PurchCostExclVATGUI.get() == '':
+            if self.SalesPrExclVATGUI.get() == '' or self.PurchCostExclVATGUI.get() == '':
                 self.error.config(text="No Input!")
                 return
             try:

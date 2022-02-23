@@ -57,7 +57,7 @@ class describeProductInfo:
         # ----------------------------------------------------------------------
         PurchCostExclVATFrame = tk.Frame()  # PurchCostExclVAT Frame
 
-        PurchCostExclVATLabel = tk.Label(master=PurchCostExclVATFrame, text="Purches Cost Excluding VAT")
+        PurchCostExclVATLabel = tk.Label(master=PurchCostExclVATFrame, text="Purchase Cost Excluding VAT")
         PurchCostExclVATLabel.pack()
 
         self.PurchCostExclVATGUI = tk.Entry(master=PurchCostExclVATFrame)
@@ -98,6 +98,19 @@ class describeProductInfo:
         responseFrame.pack(expand=True)
         responseFrame.place(relx=.05, rely=.4)
 
+
+        # ----------------------------------------------------------------------
+        errorFrame = tk.Frame(width=50, height=20)
+        errorFrame.grid(columnspan=2)
+
+        errorType = tk.Label(master=errorFrame, text="Error:").grid(column=0, row=0, sticky='w', ipady=5)
+        self.error = tk.Label(master=errorFrame, text="None", fg="red")
+        self.error.grid(column=1, row=0)
+
+        errorFrame.pack()
+        errorFrame.pack(expand=True)
+        errorFrame.place(relx=.4, rely=.85)
+
         self.window.mainloop()
 
     def callback(self):
@@ -105,15 +118,24 @@ class describeProductInfo:
             if type(self.VATType) == str:
                 pass
             else:
+                self.error.config(text="The VATType is not String!")
                 raise Exception("The VATType is not String!")
 
-            self.SalesPrExclVAT = float(self.SalesPrExclVATGUI.get())
-            self.PurchCostExclVAT = float(self.PurchCostExclVATGUI.get())
+            if self.SalesPrExclVATGUI.get() == '' and self.PurchCostExclVATGUI.get() == '':
+                self.error.config(text="No Input!")
+                return
+            try:
+                self.SalesPrExclVAT = float(self.SalesPrExclVATGUI.get())
+                self.PurchCostExclVAT = float(self.PurchCostExclVATGUI.get())
+            except ValueError:
+                self.error.config(text="Input have to be a number (int/float)!")
+
             if type(self.SalesPrExclVAT) == int:
                 pass
             elif type(self.SalesPrExclVAT) == float:
                 pass
             else:
+                self.error.config(text="The Sales Price Exclude VAT is not Int or Float!")
                 raise Exception("The SalesPrExclVAT is not Int or Float!")
 
             if type(self.PurchCostExclVAT) == int:
@@ -121,8 +143,10 @@ class describeProductInfo:
             elif type(self.PurchCostExclVAT) == float:
                 pass
             else:
+                self.error.config(text="The Purchase Cost Exclude VAT is not Int or FLoat!")
                 raise Exception("The PurchCostExclVAT is not Int or FLoat!")
 
+            self.error.config(text="None")
             self.printProductInfo()
 
     def useVAT(self):
