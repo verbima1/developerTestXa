@@ -70,13 +70,14 @@ class describeProductInfo:
 
         print("Surcharge is " + str(self.calculateSurcharge()) + "%", end="\n\n")
 
-def main():
+
+if __name__ == '__main__':
     VATType = str(input("Write VAT Type (Base, Reduced1, Reduced2, NoVAT).\n"))
     if VATType == 'Base' or VATType == 'Reduced1' or VATType == 'Reduced2' or VATType == 'NoVAT':
         print("OK\n")
     else:
         print("Wrong VAT Type written.")
-        main()
+        exit()
     while True:
         try:
             SalesPrExclVAT = float(input("Sales Price Excluding VAT.\n"))
@@ -89,6 +90,3 @@ def main():
     start = describeProductInfo(VATType, SalesPrExclVAT, PurchCostExclVAT)
     start.printProductInfo()
     input('Press ENTER to exit')
-
-if __name__ == '__main__':
-    main()
